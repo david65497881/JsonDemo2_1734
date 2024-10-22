@@ -33,9 +33,9 @@ namespace JsonDemo2_1734
             //第二段jsonData為要存入的資料
             //@ 符號表示這是一個逐字字串，可以直接使用反斜線而不用加上跳脫字符
             //System.IO.File.WriteAllText用來將字串內容寫入檔案的靜態方法，如果檔案已存在，會直接覆蓋，如果檔案不存在，會自動創建
-            System.IO.File.WriteAllText(@"guaranteeData3.json", jsonData);
+            System.IO.File.WriteAllText(@"guaranteeData.json", jsonData);
 
-            Console.WriteLine("JSON data has been saved to guaranteeData3.json");
+            Console.WriteLine("JSON data has been saved to guaranteeData.json");
 
             Console.ReadLine();
 
@@ -44,7 +44,7 @@ namespace JsonDemo2_1734
 
             //定義完整檔案路徑，Path.Combine是C#裡合併路徑的靜態方法，作用是將多個字串組合成一個合法的檔案或資料夾路徑，並且會自動處理路徑之間的分隔符號
             //例如，當你手動拼接路徑時，如果不小心忘記加上分隔符號或重複加上，就可能產生不正確的路徑。而 Path.Combine 則會自動處理這些情況，確保結果是正確的
-            string filePath = Path.Combine(baseDirectory,@"guaranteeData2.json");
+            string filePath = Path.Combine(baseDirectory,@"guaranteeData.json");
 
             //如果檔案存在，反序列化並輸出，如果不存在，顯示檔案不存在
             if (File.Exists(filePath))
