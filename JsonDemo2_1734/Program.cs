@@ -77,16 +77,49 @@ namespace JsonDemo2_1734
     }
     public class GuaranteeData
     {
+        /// <summary>
+        /// 投資人帳號
+        /// </summary>
         public string InvestorAccount { get; set; }
+        /// <summary>
+        /// 擔保日期
+        /// </summary>
         public DateTime GuaranteeDate { get; set; }
+        /// <summary>
+        /// 擔保序號
+        /// </summary>
         public string GuaranteeSerialNumber { get; set; }
+        /// <summary>
+        /// 委託日期
+        /// </summary>
         public DateTime CommissionDate { get; set; }
+        /// <summary>
+        /// 委託序號
+        /// </summary>
         public string CommissionSerialNumber { get; set; }  
+        /// <summary>
+        /// 成交狀態
+        /// </summary>
         public string TransactionStatus { get; set; }
+        /// <summary>
+        /// 還劵狀態
+        /// </summary>
         public string RepaymentStatus { get; set; }
+        /// <summary>
+        /// 已申報擔保總經額
+        /// </summary>
         public decimal ReportedGuaranteeAmount { get; set; }
+        /// <summary>
+        /// 擔保維持率
+        /// </summary>
         public decimal GuaranteeMaintainRate { get; set; }
+        /// <summary>
+        /// 超過擔保規定比率總值
+        /// </summary>
         public decimal ExceededGuaranteeRate { get; set; }
+        /// <summary>
+        /// 功能碼
+        /// </summary>
         public string FunctionalCode { get; set; }
        
     }
