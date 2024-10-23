@@ -19,24 +19,79 @@ namespace JsonDemo2_1734
                     TransactionStatus = "Success",
                     RepaymentStatus = "Success"
                 },
-                GuaranteeData = new GuaranteeData
+                InvestorAccountGroup = new List<InvestorAccountGroup>
                 {
-                    InvestorAccount = "DavidWang1204",
-                    GuaranteeDate = DateTime.Now,
-                    GuaranteeSerialNumber = "G12345",
-                    CommissionDate = DateTime.Now,
-                    CommissionSerialNumber = "Y12345",
-                    ReportedGuaranteeAmount = 9000,
-                    GuaranteeMaintainRate = 80,
-                    ExceededGuaranteeRate = 90,
-                    FunctionalCode = "Hello",
-                    TransactionStatus = "Success",
-                    RepaymentStatus = "Success"
+                    new InvestorAccountGroup
+                    {
+                        GuaranteeSerialNumber = "A12345",
+                        GuaranteeSerialDate = DateTime.Now
+                    },
+                    new InvestorAccountGroup
+                    {
+                        GuaranteeSerialNumber = "B67890",
+                        GuaranteeSerialDate = DateTime.Now.AddDays(-2)
+                    }
+                },
+                GuaranteeData = new List<GuaranteeData>
+                {
+                    new GuaranteeData
+                    {
+                        InvestorAccount = "DavidWang1204",
+                        GuaranteeDate = DateTime.Now,
+                        GuaranteeSerialNumber = "A12345",
+                        CommissionDate = DateTime.Now,
+                        CommissionSerialNumber = "Y12345",
+                        ReportedGuaranteeAmount = 9000,
+                        GuaranteeMaintainRate = 80,
+                        ExceededGuaranteeRate = 90,
+                        FunctionalCode = "Hello",
+                        TransactionStatus = "Success",
+                        RepaymentStatus = "Success"
+                    },
+                    new GuaranteeData
+                    {
+                        InvestorAccount = "DavidWang1204",
+                        GuaranteeDate = DateTime.Now.AddDays(-2),
+                        GuaranteeSerialNumber = "B67890",
+                        CommissionDate = DateTime.Now.AddDays(-2),
+                        CommissionSerialNumber = "Y67890",
+                        ReportedGuaranteeAmount = 12000,
+                        GuaranteeMaintainRate = 85,
+                        ExceededGuaranteeRate = 95,
+                        FunctionalCode = "World",
+                        TransactionStatus = "Success",
+                        RepaymentStatus = "Success"
+                    }
+                },
+                GuaranteeDataDetail = new List<GuaranteeDataDetail>
+                {
+                    new GuaranteeDataDetail
+                    {
+                        GuaranteeDate = DateTime.Now,
+                        GuaranteeSerialNumber = "A12345",
+                        GuaranteeCategory = "A",
+                        BankGuaranteeSerialNumber = "AA123",
+                        BankSourceOfSecurities = "台新",
+                        BankSourceOfAccount = "DavidWang",
+                        ChangeQuantityAmount = "2/40",
+                        RemainingQuantity = "10"
+                    },
+                    new GuaranteeDataDetail
+                    {
+                        GuaranteeDate = DateTime.Now.AddDays(-2),
+                        GuaranteeSerialNumber = "B67890",
+                        GuaranteeCategory = "B",
+                        BankGuaranteeSerialNumber = "BB678",
+                        BankSourceOfSecurities = "富邦",
+                        BankSourceOfAccount = "DavidWang",
+                        ChangeQuantityAmount = "3/50",
+                        RemainingQuantity = "20"
+                    }
                 }
             };
 
 
-            //.SerializeObject用於將guaranteeData的資料轉換成JSON字串
+            //.SerializeObject用於將guaranteeWrapper的資料轉換成JSON字串
             //Formatting.Indented用於美化排版,默認情況下是沒有縮排的   
             string jsonData = JsonConvert.SerializeObject(guaranteeWrapper, Formatting.Indented);
             Console.WriteLine(jsonData);
@@ -66,18 +121,21 @@ namespace JsonDemo2_1734
 
                 //DeserializeObject<GuaranteeData>(jsonData1)將 JSON 字串轉換為 C# 中的物件
                 GuaranteeWrapper guaranteeWrapper1 = JsonConvert.DeserializeObject<GuaranteeWrapper>(jsonData1);
-
-                Console.WriteLine("InvestorAccount :" + guaranteeWrapper1.GuaranteeData.InvestorAccount);
-                Console.WriteLine("GuaranteeDate :" + guaranteeWrapper1.GuaranteeData.GuaranteeDate);
-                Console.WriteLine("GuaranteeSerialNumber :" + guaranteeWrapper1.GuaranteeData.GuaranteeSerialNumber);
-                Console.WriteLine("CommissionDate :" + guaranteeWrapper1.GuaranteeData.CommissionDate);
-                Console.WriteLine("CommissionSerialNumber :" + guaranteeWrapper1.GuaranteeData.CommissionSerialNumber);
-                Console.WriteLine("ReportedGuaranteeAmount :" + guaranteeWrapper1.GuaranteeData.ReportedGuaranteeAmount);
-                Console.WriteLine("GuaranteeMaintainRate :" + guaranteeWrapper1.GuaranteeData.GuaranteeMaintainRate);
-                Console.WriteLine("ExceededGuaranteeRate :" + guaranteeWrapper1.GuaranteeData.ExceededGuaranteeRate);
-                Console.WriteLine("FunctionalCode :" + guaranteeWrapper1.GuaranteeData.FunctionalCode);
-                Console.WriteLine("TransactionStatus :" + guaranteeWrapper1.GuaranteeData.TransactionStatus);
-                Console.WriteLine("RepaymentStatus :" + guaranteeWrapper1.GuaranteeData.RepaymentStatus);
+                foreach(var guarantee in guaranteeWrapper1.GuaranteeData) 
+                {
+                    Console.WriteLine("InvestorAccount :"+ guarantee.InvestorAccount);
+                    Console.WriteLine("GuaranteeDat :" + guarantee.GuaranteeDate);
+                    Console.WriteLine("GuaranteeSerialNumber :" + guarantee.GuaranteeSerialNumber);
+                    Console.WriteLine("CommissionDate :" + guarantee.CommissionDate);
+                    Console.WriteLine("CommissionSerialNumber :" + guarantee.CommissionSerialNumber);
+                    Console.WriteLine("ReportedGuaranteeAmount :" + guarantee.ReportedGuaranteeAmount);
+                    Console.WriteLine("ReportedGuaranteeAmount :" + guarantee.ReportedGuaranteeAmount);
+                    Console.WriteLine("GuaranteeMaintainRate :" + guarantee.GuaranteeMaintainRate);
+                    Console.WriteLine("ExceededGuaranteeRate :" + guarantee.ExceededGuaranteeRate);
+                    Console.WriteLine("FunctionalCode :" + guarantee.FunctionalCode);
+                    Console.WriteLine("InveRepaymentStatusstorAccount :" + guarantee.RepaymentStatus);
+                }
+                
             }
             else 
             {
@@ -91,13 +149,22 @@ namespace JsonDemo2_1734
     public class GuaranteeWrapper 
     {
         /// <summary>
-        /// 擔保資料
-        /// </summary>
-        public GuaranteeData GuaranteeData { get; set; }
-        /// <summary>
         /// 搜尋資料
         /// </summary>
         public SearchCriteria SearchCriteria { get; set; }
+        /// <summary>
+        /// 投資人帳號-擔保品序號/日期
+        /// </summary>
+        public List<InvestorAccountGroup> InvestorAccountGroup { get; set; }
+        /// <summary>
+        /// 擔保資料
+        /// </summary>
+        public List<GuaranteeData> GuaranteeData { get; set; }
+        /// <summary>
+        /// 擔保資料細節
+        /// </summary>
+        public List<GuaranteeDataDetail> GuaranteeDataDetail { get; set; }
+
     }
 
     public class GuaranteeData
@@ -169,6 +236,56 @@ namespace JsonDemo2_1734
         /// 還劵狀態
         /// </summary>
         public string RepaymentStatus { get; set; }
+
+    }
+
+    public class InvestorAccountGroup 
+    {
+        /// <summary>
+        /// 擔保品序號
+        /// </summary>
+        public string GuaranteeSerialNumber { get; set; }
+        /// <summary>
+        /// 擔保品日期
+        /// </summary>
+        public DateTime GuaranteeSerialDate { get;set; }
+
+    }
+
+    public class GuaranteeDataDetail 
+    {
+        /// <summary>
+        /// 擔保日期
+        /// </summary>
+        public DateTime GuaranteeDate { get; set; }
+        /// <summary>
+        /// 擔保序號
+        /// </summary>
+        public string GuaranteeSerialNumber { get; set; }
+        /// <summary>
+        /// 擔保種類
+        /// </summary>
+        public string GuaranteeCategory { get; set; }
+        /// <summary>
+        /// 央債/銀行保證序號
+        /// </summary>
+        public string BankGuaranteeSerialNumber { get; set; }
+        /// <summary>
+        /// 證劵來源-劵商
+        /// </summary>
+        public string BankSourceOfSecurities { get; set; }
+        /// <summary>
+        /// 證劵來源-帳號
+        /// </summary>
+        public string BankSourceOfAccount { get; set; }
+        /// <summary>
+        /// 異動數量/金額
+        /// </summary>
+        public string ChangeQuantityAmount { get; set; }
+        /// <summary>
+        /// 剩餘數量
+        /// </summary>
+        public string RemainingQuantity {  get; set; }
 
     }
 }
