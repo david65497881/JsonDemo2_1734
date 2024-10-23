@@ -86,6 +86,7 @@ namespace JsonDemo2_1734
                         BankSourceOfAccount = "DavidWang",
                         ChangeQuantityAmount = "3/50",
                         RemainingQuantity = "20"
+
                     }
                 }
             };
